@@ -1,0 +1,178 @@
+{
+ "primary_metric": "accuracy_under_attack",
+ "direction": "max",
+ "metric_labels": {
+  "accuracy_under_attack": "Exactitude sous attaque",
+  "accuracy_clean": "Exactitude (entrée propre)",
+  "attack_success_rate": "Taux de réussite d'attaque (ASR)",
+  "expected_calibration_error": "ECE sous attaque",
+  "menu_recall_at_8": "Rappel du menu à 8",
+  "macro_f1_clean": "Macro-F1 (entrée propre)",
+  "latency_ms_per_example": "Latence médiane (ms par décision)"
+ },
+ "dataset": {
+  "name": "DeepPavlov/banking77_fr",
+  "config": "default",
+  "split": "test",
+  "n_examples": 100
+ },
+ "approaches": [
+  {
+   "name": "CamemBERT-base fine-tuné",
+   "role": "reference",
+   "metrics": {
+    "accuracy_clean": 0.46,
+    "macro_f1_clean": 0.4619883040935672,
+    "accuracy_under_attack": 0.27,
+    "attack_success_rate": 0.06521739130434782,
+    "expected_calibration_error": 0.2514813046669588,
+    "menu_recall_at_8": null,
+    "latency_ms_per_example": 76.72
+   },
+   "ci95": {
+    "accuracy_clean": [
+     0.36,
+     0.56
+    ],
+    "macro_f1_clean": [
+     0.38073089700996676,
+     0.5515068265068265
+    ],
+    "accuracy_under_attack": [
+     0.19,
+     0.35
+    ],
+    "attack_success_rate": [
+     0.0,
+     0.14705882352941177
+    ],
+    "expected_calibration_error": [
+     0.18664282790850847,
+     0.3116329144407064
+    ]
+   },
+   "latency_ms": {
+    "p50": 76.72,
+    "p95": 90.82
+   },
+   "notes": "almanach/camembert-base · torch.float32 · attention sdpa · cpu · lr 8e-05 ; 2 époque(s) sur 1540 énoncés ; note concaténée. Énoncés évalués : 100. ASR mesuré depuis l'entrée propre."
+  },
+  {
+   "name": "Décideur à menu – passe unique",
+   "role": "new",
+   "metrics": {
+    "accuracy_clean": 0.19,
+    "macro_f1_clean": 0.1840434419381788,
+    "accuracy_under_attack": 0.125,
+    "attack_success_rate": 0.3684210526315789,
+    "expected_calibration_error": 0.32128444612026213,
+    "menu_recall_at_8": 0.96,
+    "latency_ms_per_example": 814.89
+   },
+   "ci95": {
+    "accuracy_clean": [
+     0.12,
+     0.27
+    ],
+    "macro_f1_clean": [
+     0.12236652236652237,
+     0.24507575757575759
+    ],
+    "accuracy_under_attack": [
+     0.065,
+     0.19
+    ],
+    "attack_success_rate": [
+     0.15789473684210525,
+     0.6
+    ],
+    "expected_calibration_error": [
+     0.27000152058899407,
+     0.37597498841583726
+    ],
+    "menu_recall_at_8": [
+     0.92,
+     0.99
+    ]
+   },
+   "latency_ms": {
+    "p50": 814.89,
+    "p95": 1006.59
+   },
+   "notes": "Qwen/Qwen2.5-0.5B-Instruct · torch.float32 · attention sdpa · cpu · transformers 5.24.0 · glouton, 12 jetons max ; lecture directe des lettres ; illisibles : 0.0%. Énoncés évalués : 100. ASR mesuré depuis l'entrée propre."
+  },
+  {
+   "name": "Décideur à menu – raisonnement bref",
+   "role": "new",
+   "metrics": {
+    "accuracy_clean": 0.2,
+    "macro_f1_clean": 0.18292954608744083,
+    "accuracy_under_attack": 0.255,
+    "attack_success_rate": 0.1,
+    "expected_calibration_error": 0.22431836195290086,
+    "menu_recall_at_8": 0.96,
+    "latency_ms_per_example": 1088.13
+   },
+   "ci95": {
+    "accuracy_clean": [
+     0.13,
+     0.28
+    ],
+    "macro_f1_clean": [
+     0.11947089947089948,
+     0.24498137521393337
+    ],
+    "accuracy_under_attack": [
+     0.185,
+     0.33
+    ],
+    "attack_success_rate": [
+     0.0,
+     0.25
+    ],
+    "expected_calibration_error": [
+     0.17331849060952662,
+     0.29036511354148387
+    ],
+    "menu_recall_at_8": [
+     0.92,
+     0.99
+    ]
+   },
+   "latency_ms": {
+    "p50": 1088.13,
+    "p95": 1281.93
+   },
+   "notes": "Qwen/Qwen2.5-0.5B-Instruct · torch.float32 · attention sdpa · cpu · transformers 5.24.0 · glouton, 12 jetons max ; justification puis lecture des lettres ; illisibles : 0.0%. Énoncés évalués : 100. ASR mesuré depuis l'entrée propre."
+  }
+ ],
+ "phase": "public",
+ "scale": "reduced",
+ "seed": 42,
+ "date": "2026-11-24T03:30:42+00:00",
+ "environment": {
+  "python": "3.12.16",
+  "system": "Linux-7.0.0-1020-azure-x86_64-with-glibc2.41",
+  "cpu": 4,
+  "ram_gb": 15.6,
+  "device": "cpu",
+  "gpu": null,
+  "scale": "reduced",
+  "versions": {
+   "torch": "2.15.0+cpu",
+   "transformers": "5.24.0",
+   "datasets": "5.2.0",
+   "sentence-transformers": "6.3.0",
+   "scikit-learn": "1.9.1",
+   "numpy": "2.5.5",
+   "pandas": "3.1.1",
+   "openai": "3.58.0",
+   "xgboost": "3.4.1"
+  }
+ },
+ "service_calls": {
+  "n": 0,
+  "failures": 0,
+  "seconds": 0
+ }
+}

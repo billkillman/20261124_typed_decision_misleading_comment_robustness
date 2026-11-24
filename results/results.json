@@ -1,0 +1,181 @@
+{
+ "primary_metric": "accuracy_under_attack",
+ "direction": "max",
+ "metric_labels": {
+  "accuracy_under_attack": "Exactitude sous attaque",
+  "accuracy_clean": "Exactitude (entrée propre)",
+  "attack_success_rate": "Taux de réussite d'attaque (ASR)",
+  "expected_calibration_error": "ECE sous attaque",
+  "menu_recall_at_8": "Rappel du menu à 8",
+  "macro_f1_clean": "Macro-F1 (entrée propre)",
+  "latency_ms_per_example": "Latence médiane (ms par décision)"
+ },
+ "dataset": {
+  "name": "DeepPavlov/banking77_fr",
+  "config": "default",
+  "split": "test",
+  "n_examples": 400
+ },
+ "approaches": [
+  {
+   "name": "CamemBERT-base fine-tuné",
+   "role": "reference",
+   "metrics": {
+    "accuracy_clean": 0.745,
+    "macro_f1_clean": 0.6940799849141027,
+    "accuracy_under_attack": 0.51,
+    "attack_success_rate": 0.13758389261744966,
+    "expected_calibration_error": 0.43039887511171404,
+    "menu_recall_at_8": null,
+    "latency_ms_per_example": 1.13
+   },
+   "ci95": {
+    "accuracy_clean": [
+     0.7025,
+     0.7875
+    ],
+    "macro_f1_clean": [
+     0.6412331587687625,
+     0.7250698133040754
+    ],
+    "accuracy_under_attack": [
+     0.46,
+     0.55625
+    ],
+    "attack_success_rate": [
+     0.10034602076124567,
+     0.17869415807560138
+    ],
+    "expected_calibration_error": [
+     0.3965689368266612,
+     0.46605552408378564
+    ]
+   },
+   "latency_ms": {
+    "p50": 1.13,
+    "p95": 1.62
+   },
+   "notes": "almanach/camembert-base · torch.float32 · attention sdpa · cuda · lr 3e-05 ; 3 époque(s) sur 10003 énoncés ; note concaténée. Énoncés évalués : 400. ASR mesuré depuis l'entrée propre."
+  },
+  {
+   "name": "Décideur à menu – passe unique",
+   "role": "new",
+   "metrics": {
+    "accuracy_clean": 0.6525,
+    "macro_f1_clean": 0.6121938582595573,
+    "accuracy_under_attack": 0.16875,
+    "attack_success_rate": 0.7279693486590039,
+    "expected_calibration_error": 0.7786998065188527,
+    "menu_recall_at_8": 0.9775,
+    "latency_ms_per_example": 65.52
+   },
+   "ci95": {
+    "accuracy_clean": [
+     0.61,
+     0.7
+    ],
+    "macro_f1_clean": [
+     0.5547524412674051,
+     0.6484572388869064
+    ],
+    "accuracy_under_attack": [
+     0.13875,
+     0.20125
+    ],
+    "attack_success_rate": [
+     0.6765799256505576,
+     0.782608695652174
+    ],
+    "expected_calibration_error": [
+     0.7523884399607778,
+     0.8067111121118068
+    ],
+    "menu_recall_at_8": [
+     0.9625,
+     0.99
+    ]
+   },
+   "latency_ms": {
+    "p50": 65.52,
+    "p95": 80.24
+   },
+   "notes": "Qwen/Qwen2.5-3B-Instruct · torch.float16 · attention sdpa · cuda · transformers 5.22.1 · glouton, 60 jetons max ; lecture directe des lettres ; illisibles : 0.0%. Énoncés évalués : 400. ASR mesuré depuis l'entrée propre."
+  },
+  {
+   "name": "Décideur à menu – raisonnement bref",
+   "role": "new",
+   "metrics": {
+    "accuracy_clean": 0.6325,
+    "macro_f1_clean": 0.5995721386668673,
+    "accuracy_under_attack": 0.17875,
+    "attack_success_rate": 0.7193675889328063,
+    "expected_calibration_error": 0.7623681077361106,
+    "menu_recall_at_8": 0.9775,
+    "latency_ms_per_example": 248.45
+   },
+   "ci95": {
+    "accuracy_clean": [
+     0.5825,
+     0.6775
+    ],
+    "macro_f1_clean": [
+     0.5393401332331538,
+     0.6335376593059641
+    ],
+    "accuracy_under_attack": [
+     0.1475,
+     0.20875
+    ],
+    "attack_success_rate": [
+     0.6639344262295082,
+     0.7727272727272727
+    ],
+    "expected_calibration_error": [
+     0.7329025392606854,
+     0.7913361124321818
+    ],
+    "menu_recall_at_8": [
+     0.9625,
+     0.99
+    ]
+   },
+   "latency_ms": {
+    "p50": 248.45,
+    "p95": 268.92
+   },
+   "notes": "Qwen/Qwen2.5-3B-Instruct · torch.float16 · attention sdpa · cuda · transformers 5.22.1 · glouton, 60 jetons max ; justification puis lecture des lettres ; illisibles : 0.0%. Énoncés évalués : 400. ASR mesuré depuis l'entrée propre."
+  }
+ ],
+ "phase": "public",
+ "scale": "full",
+ "seed": 42,
+ "date": "2026-11-24T03:49:18+00:00",
+ "environment": {
+  "python": "3.13.16",
+  "system": "Linux-6.6.159+-x86_64-with-glibc2.39",
+  "cpu": 2,
+  "ram_gb": 12.7,
+  "device": "cuda",
+  "gpu": {
+   "name": "Tesla T4",
+   "memory_gb": 14.6
+  },
+  "scale": "full",
+  "versions": {
+   "torch": "2.14.1+cu130",
+   "transformers": "5.22.1",
+   "datasets": "4.8.5",
+   "sentence-transformers": "5.7.0",
+   "scikit-learn": "1.6.1",
+   "numpy": "2.4.6",
+   "pandas": "2.2.3",
+   "openai": "2.54.0",
+   "xgboost": "3.4.1"
+  }
+ },
+ "service_calls": {
+  "n": 0,
+  "failures": 0,
+  "seconds": 0
+ }
+}
